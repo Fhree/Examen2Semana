@@ -29,6 +29,7 @@ namespace ExamenSegundaSemana
 
 
             var resul = from p in listPizza
+                        where p.Ingredientes.Count() >  0
                         select new
                         {
                             p.Id,
@@ -40,8 +41,37 @@ namespace ExamenSegundaSemana
             {
                Console.WriteLine(aux.ToString());
             }
+
+            var resul2 = from p in listPizza
+                         where p.Ingredientes.Count() == 0
+                        select new
+                        {
+                            p.Id,
+                            p.Name,
+                            pt = p.precioTotal()
+                        };
+
+            foreach (var aux in resul)
+            {
+                Console.WriteLine(aux.ToString());
+            }
+
+
             Console.ReadKey();
+
+
         }
+    }
+
+    public interface DataMapper {
+        void Create(Object o);
+        void Delete(Object o);
+        void Update(Object o);
+
+    }
+
+    public interface QueryObject {
+        Object Select(Guid id)
     }
 
     public class Pizza {
